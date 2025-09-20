@@ -1,20 +1,26 @@
 "use client";
+
 import Image from "next/image";
 import Footer from "@/shared/components/footer";
 import Form from "@/features/auth/components/form";
 import { useEffect } from "react";
 
 const fetchCookies = async () => {
-  const response = await fetch(
-    "https://test-cookies-green.vercel.app/set-cookie",
+  try {
+    const response = await fetch(
+      "https://test-cookies-green.vercel.app/set-cookie",
 
-    {
-      method: "POST",
-      credentials: "include",
-    }
-  );
-  const data = await response.json();
-  return data;
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("MASUK");
+    console.log((error as Error).message);
+  }
 };
 
 const fetchProfile = async () => {
