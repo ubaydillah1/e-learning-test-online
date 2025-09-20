@@ -12,12 +12,26 @@ const fetchCookies = async () => {
   return data;
 };
 
+const fetchProfile = async () => {
+  const response = await fetch(
+    "https://test-cookies-green.vercel.app/profile",
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  );
+  return response.json();
+};
+
 const SignIn = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const result = await fetchCookies();
-        console.log(result);
+        const setCookieResult = await fetchCookies();
+        console.log("Set Cookie Result:", setCookieResult);
+
+        const profileResult = await fetchProfile();
+        console.log("Profile Result:", profileResult);
       } catch (error) {
         console.error("Gagal mengambil data:", error);
       }
