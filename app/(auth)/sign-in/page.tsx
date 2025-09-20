@@ -5,9 +5,12 @@ import Form from "@/features/auth/components/form";
 import { useEffect } from "react";
 
 const fetchCookies = async () => {
-  const response = await fetch("https://test-cookies-green.vercel.app", {
-    credentials: "include",
-  });
+  const response = await fetch(
+    "https://test-cookies-green.vercel.app/set-cookie",
+    {
+      credentials: "include",
+    }
+  );
   const data = await response.json();
   return data;
 };
