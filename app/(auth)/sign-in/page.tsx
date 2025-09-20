@@ -7,7 +7,9 @@ import { useEffect } from "react";
 const fetchCookies = async () => {
   const response = await fetch(
     "https://test-cookies-green.vercel.app/set-cookie",
+
     {
+      method: "POST",
       credentials: "include",
     }
   );
