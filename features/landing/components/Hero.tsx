@@ -6,7 +6,7 @@ const Hero = () => {
   const isSignedIn = false;
 
   return (
-    <section className="bg-gray-100 bg-[url(/assets/background/sm-pattern-hexagon.webp)] bg-center bg-no-repeat py-20 md:bg-[url(/assets/background/md-pattern-hexagon.webp)] md:py-24 lg:py-28 min-h-screen">
+    <section className="bg-center bg-no-repeat py-20 bg-[url(/assets/background/md-pattern-hexagon.webp)] md:py-24 lg:py-28 min-h-screen bg-background!">
       <div className="max-w-[1200px] mx-auto px-5 section-x">
         <div className="flex items-center flex-col md:flex-row">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:py-0">

@@ -1,93 +1,89 @@
 "use client";
 
-import Image from "next/image";
-import Footer from "@/shared/components/footer";
-import Form from "@/features/auth/components/form";
-import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
-const fetchCookies = async () => {
-  try {
-    const response = await fetch(
-      "https://test-cookies-green.vercel.app/set-cookie",
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 
-      {
-        method: "POST",
-        credentials: "include",
-      }
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log("MASUK");
-    console.log((error as Error).message);
+const formSchema = z.object({
+  email: z.string().email({ message: "Email tidak valid" }),
+  password: z.string().min(1, { message: "Password wajib diisi" }),
+});
+
+export default function SignInForm() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
   }
-};
-
-const fetchProfile = async () => {
-  const response = await fetch(
-    "https://test-cookies-green.vercel.app/profile",
-    {
-      method: "GET",
-      credentials: "include",
-    }
-  );
-  return response.json();
-};
-
-const SignIn = () => {
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const setCookieResult = await fetchCookies();
-        console.log("Set Cookie Result:", setCookieResult);
-
-        const profileResult = await fetchProfile();
-        console.log("Profile Result:", profileResult);
-      } catch (error) {
-        console.error("Gagal mengambil data:", error);
-      }
-    };
-    getData();
-  }, []);
 
   return (
-    <section className="flex h-screen flex-col items-center justify-center gap-8 bg-[url(/assets/background/sm-pattern-hexagon.webp)] bg-center bg-no-repeat md:bg-[url(/assets/background/md-pattern-hexagon.webp)] section-x max-w-[1200px] mx-auto">
-      <div className="flex w-full flex-col space-x-20 md:flex-row">
-        <div className="hidden flex-col gap-5 md:flex w-full">
-          <figure className="mb-5 flex items-center gap-3">
-            <div className="relative size-[64px] bg-cover">
-              <Image
-                src="/assets/images/logo.png"
-                alt="Logo SMA Muhammadiyah 1"
-                fill
-              />
-            </div>
-            <figcaption className="flex flex-col gap-1">
-              <h1 className="text-xl font-bold text-primary">
-                SMA Muhammadiyah 1
-              </h1>
-              <h2 className="text-gray-500">E-Learning</h2>
-            </figcaption>
-          </figure>
-          <div className="mb-5 flex flex-col gap-10">
-            <h1 className="text-2xl font-bold md:text-5xl">
-              Selamat Datang Kembali!
-            </h1>
-            <p className="text-sm md:text-base">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Assumenda minima eum, dolor delectus reiciendis repellendus
-              placeat incidunt voluptatum sequi, quia, sunt aut nulla libero
-              eveniet ea error. Tempore, obcaecati quae!
-            </p>
-          </div>
-        </div>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-sm">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 rounded-lg border bg-white p-6 shadow-md"
+          >
+            <h1 className="text-2xl font-semibold text-center">Masuk</h1>
 
-        <Form />
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="masukkan email kamu" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Password */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="masukkan password kamu"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Button */}
+            <Button type="submit" className="w-full">
+              Masuk Sekarang
+            </Button>
+          </form>
+        </Form>
       </div>
-
-      <Footer />
-    </section>
+    </div>
   );
-};
-
-export default SignIn;
+}

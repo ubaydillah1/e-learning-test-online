@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Barlow } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const barlow = Barlow({
-  variable: "--font-barlow",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${barlow.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>
   );
 }

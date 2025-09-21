@@ -16,19 +16,109 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique
-  password String
-  Session  Session[]
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  role      Role      @default(STUDENT)
+  Session   Session[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("users")
 }
 
 model Session {
-  id              String   @id @default(uuid())
-  userId          String
-  user            User     @relation(fields: [userId], references: [id])
-  sessionToken    String   @unique
-  expires         DateTime
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  absoluteExpires DateTime
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  sessionToken String   @unique
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("sessions")
+}
+
+model EducationLevel {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  icon        String
+  Subjects    Subject[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("education_levels")
+}
+
+model Subject {
+  id               String            @id @default(uuid())
+  name             String
+  EducationLevel   EducationLevel?   @relation(fields: [educationLevelId], references: [id])
+  educationLevelId String?
+  QuestionPackages QuestionPackage[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@map("subjects")
+}
+
+model QuestionPackage {
+  id        String   @id @default(uuid())
+  name      String
+  Subject   Subject? @relation(fields: [subjectId], references: [id])
+  subjectId String?
+  Quizzes   Quiz[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("question_packages")
+}
+
+model Quiz {
+  id                String           @id @default(uuid())
+  name              String
+  description       String
+  QuestionPackage   QuestionPackage? @relation(fields: [questionPackageId], references: [id])
+  questionPackageId String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  Question          Question[]
+
+  @@map("quizzes")
+}
+
+model Question {
+  id           String         @id @default(uuid())
+  question     String
+  questionType QuestionType
+  Quiz         Quiz?          @relation(fields: [quizId], references: [id])
+  quizId       String?
+  AnswerOption AnswerOption[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@map("questions")
+}
+
+model AnswerOption {
+  id         String   @id @default(uuid())
+  text       String
+  isCorrect  Boolean  @default(false)
+  questionId String
+  Question   Question @relation(fields: [questionId], references: [id])
+
+  @@map("answer_options")
+}
+
+enum QuestionType {
+  MultipleChoice
+  MulitipleAnswer
+  TrueFalse
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
 }

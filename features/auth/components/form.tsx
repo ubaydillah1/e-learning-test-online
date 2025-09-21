@@ -37,9 +37,9 @@ const SignInForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-5 rounded-lg bg-gray-200 lg:px-10 lg:py-10 px-4 py-5 w-full"
+        className="flex flex-col gap-5 rounded-[12px] bg-white shadow-2xl lg:px-10 lg:py-10 px-[20px] py-5 w-full"
       >
-        <h1 className="mb-5 text-center text-3xl font-bold">Sign In</h1>
+        <h1 className="mb-5 text-center text-3xl font-bold">Masuk</h1>
 
         {/* Username */}
         <FormField
@@ -47,10 +47,10 @@ const SignInForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter your username"
+                  placeholder="Masukkan Email kamu"
                   {...field}
                   className="rounded-md bg-white p-2 ring-1 ring-gray-400 focus-visible:ring-2 focus-visible:ring-primary"
                 />
@@ -69,7 +69,7 @@ const SignInForm = () => {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter your password"
+                  placeholder="Masukkan passowrd kamu"
                   type="password"
                   {...field}
                   className="rounded-md bg-white p-2 ring-1 ring-gray-400 focus-visible:ring-2 focus-visible:ring-primary"
@@ -83,9 +83,9 @@ const SignInForm = () => {
         {/* Button */}
         <Button
           type="submit"
-          className="bg-primary mt-5 rounded-md p-2.5 text-sm text-white hover:opacity-90"
+          className="bg-primary mt-5 rounded-md py-5 text-sm text-white hover:opacity-90"
         >
-          Sign In Now
+          Masuk Sekarang
         </Button>
       </form>
     </Form>
