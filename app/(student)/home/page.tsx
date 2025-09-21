@@ -12,7 +12,7 @@ const AppPage = () => {
           <p>Pilih jenjang pendidikanmu dan mulailah belajar.</p>
         </div>
 
-        <div className="flex gap-[32px] flex-wrap mt-[64px]">
+        <div className="flex gap-[32px] flex-wrap justify-center mt-[64px]">
           <CardPortal />
           <CardPortal />
           <CardPortal />

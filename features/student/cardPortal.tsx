@@ -1,9 +1,12 @@
+"use client"
 import { ArrowRight, BookA } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const CardPortal = () => {
+  const router = useRouter();
   return (
-    <div className="group rounded-[12px] bg-white w-full p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col gap-[16px] border hover:border-primary sm:w-[calc(50%-32px)] lg:w-[calc(33.333%-32px)] transform hover:-translate-y-3">
+    <div className="group rounded-[12px] bg-white w-full p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col gap-[16px] border hover:border-primary sm:w-[calc(50%-32px)] lg:w-[calc(33.333%-32px)] transform hover:-translate-y-3 " onClick={() => router.push("/home/1")}>
       <div className="size-[72px] rounded-full bg-red-200 border-red-500 flex-center ">
         <BookA className="text-red-500 size-[38px]" />
       </div>
